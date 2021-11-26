@@ -8,8 +8,11 @@ namespace Goalsy.Components
 {
     interface ITimer : IComponent
     {
+        // Start or resume the timer
         public void Start();
+        // Pause the timer
         public void Pause();
+        // Reset timer back to intial values entered.
         public void Reset();
     }
 }
