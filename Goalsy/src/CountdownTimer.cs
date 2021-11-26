@@ -36,7 +36,6 @@ namespace Goalsy.Components
         public string Name 
         {   
             get => "CountdownTimer";
-            set => throw new NotImplementedException(); 
         }
 
         public int Hours
