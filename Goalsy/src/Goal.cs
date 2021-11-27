@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Goalsy.Components;
+using Serilog;
 
 namespace Goalsy.Objectives
 {
@@ -19,11 +20,13 @@ namespace Goalsy.Objectives
 
         public void AttachComponent(IComponent component)
         {
+            Log.Information("Component {ComponentName} added to Goal {GoalName}", component.Name, _description);
             _components.Add(component);
         }
 
         public void DetachComponent(IComponent component)
         {
+            Log.Information("Component {ComponentName} removed from Goal {GoalName}", component.Name, _description);
             _components.Remove(component);
         }
 
