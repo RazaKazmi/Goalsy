@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
+using Serilog;
 
 namespace Goalsy.Components
 {
@@ -22,9 +23,9 @@ namespace Goalsy.Components
 
         public CountdownTimer(int hours, int minutes, int seconds)
         {
-            _hours = hours;
-            _minutes = minutes;
-            _seconds = seconds;
+            Hours = hours;
+            Minutes = minutes;
+            Seconds = seconds;
             _initialTimeSet = new TimeSpan(hours, minutes, seconds);
             _timeRemaining = new TimeSpan(hours, minutes, seconds);
 
@@ -44,7 +45,7 @@ namespace Goalsy.Components
             set
             {
                 if (value < 0 || value >= MaxHours)
-                    throw new ArgumentOutOfRangeException("hours");
+                    throw new ArgumentOutOfRangeException("Hours");
                 _hours = value;
             }
         }
@@ -55,7 +56,7 @@ namespace Goalsy.Components
             set
             {
                 if (value < 0 || value >= MaxMinutes)
-                    throw new ArgumentOutOfRangeException("minutes");
+                    throw new ArgumentOutOfRangeException("Minutes");
                 _minutes = value;
             }
         }
@@ -66,7 +67,7 @@ namespace Goalsy.Components
             set
             {
                 if (value < 0 || value >= MaxSeconds)
-                    throw new ArgumentOutOfRangeException("seconds");
+                    throw new ArgumentOutOfRangeException("Seconds");
                 _seconds = value;
             }
         }

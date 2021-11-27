@@ -18,7 +18,7 @@ namespace Goalsy.Objectives
         {
             get => _description;
             // TO DO: Verify description is within character limit and valid
-            set => throw new NotImplementedException(); 
+            set => _description = value; 
         }
 
         public void AttachComponent(IComponent component)
@@ -30,5 +30,7 @@ namespace Goalsy.Objectives
         {
             _components.Remove(component);
         }
+
+        protected abstract void Init();
     }
 }

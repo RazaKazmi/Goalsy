@@ -30,6 +30,16 @@ namespace Goalsy.Objectives
             _components.Remove(component);
         }
 
+        public void AddTask(Task task)
+        {
+            _tasks.Add(task);
+        }
+
+        public void RemoveTask(Task task)
+        {
+            _tasks.Remove(task);
+        }
+
         protected abstract void Init();
     }
 }
