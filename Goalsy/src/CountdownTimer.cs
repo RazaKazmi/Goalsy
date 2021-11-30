@@ -5,7 +5,7 @@ using Serilog;
 
 namespace Goalsy.Components
 {
-    class CountdownTimer : ITimer
+    internal class CountdownTimer : ITimer
     {
         private Timer _timer;
         private readonly ComponentType _componentType = ComponentType.Timer;
