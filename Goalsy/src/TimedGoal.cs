@@ -7,9 +7,13 @@ using Goalsy.Components;
 
 namespace Goalsy.Objectives
 {
-    class TestGoal : Goal
+    internal class TimedGoal : Goal
     {
-        public TestGoal(string name)
+        private const int DefaultHours = 0;
+        private const int DefaultMinutes = 10;
+        private const int DefaultSeconds = 0;
+
+        public TimedGoal(string name)
         {
             Init();
             Description = name;
@@ -19,6 +23,7 @@ namespace Goalsy.Objectives
         {
             _components = new List<IComponent>();
             _tasks = new List<Task>();
+            this.AttachComponent(new CountdownTimer(DefaultHours,DefaultMinutes,DefaultSeconds));
         }
     }
 }

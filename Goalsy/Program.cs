@@ -66,11 +66,9 @@ namespace Goalsy
             Console.WriteLine("Welcome to Goalsy!");
             //CreateGoal("Get whiter teeth",0,0,0);
             //CreateGoal("Learn to whistle");
-            IObjective mygoal = new TestGoal("Get whiter teeth");
-            ITimer timerComp = new CountdownTimer(0, 0, 10);
-            mygoal.AttachComponent(timerComp);
+            Goal mygoal = new TimedGoal("Get whiter teeth");
+            mygoal.AddTask(new BasicTask("Brush teeth"));
             Console.WriteLine(mygoal.Description);
-            timerComp.Start();
 
             Console.WriteLine("Press enter to exit...");
             Console.ReadLine();

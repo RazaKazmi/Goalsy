@@ -10,8 +10,9 @@ namespace Goalsy.Objectives
 {
     class BasicTask : Task
     {
-        BasicTask()
+        public BasicTask(string description)
         {
+            Description = description;
             Init();
         }
 

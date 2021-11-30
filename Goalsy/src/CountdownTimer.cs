@@ -8,6 +8,7 @@ namespace Goalsy.Components
     class CountdownTimer : ITimer
     {
         private Timer _timer;
+        private readonly ComponentType _componentType = ComponentType.Timer;
         private DateTime _startTime;
         private DateTime _endTime;
         private TimeSpan _initialTimeSet;
@@ -91,6 +92,11 @@ namespace Goalsy.Components
             _startTime = DateTime.UtcNow;
             _endTime = _startTime.Add(_timeRemaining);
             _timer.Start();
+        }
+
+        public ComponentType GetComponentType()
+        {
+            return _componentType;
         }
 
         // Returns the current timer in the format {hh:mm:ss}.

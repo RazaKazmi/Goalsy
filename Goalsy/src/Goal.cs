@@ -40,6 +40,22 @@ namespace Goalsy.Objectives
             _tasks.Remove(task);
         }
 
+        public IComponent GetComponentByType(ComponentType componentType)
+        {
+            foreach (IComponent component in _components)
+            {
+                if (component.GetComponentType() == componentType)
+                {
+                    return component;
+                }
+            }
+            return null;
+        }
+        public List<IComponent> GetAllComponents()
+        {
+            return _components;
+        }
+
         protected abstract void Init();
     }
 }
