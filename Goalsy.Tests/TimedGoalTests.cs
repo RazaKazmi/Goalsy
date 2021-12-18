@@ -69,14 +69,14 @@ namespace Goalsy.Tests
         }
 
         [Fact]
-        public void DetachComponent_NonAttachedComponentType_ReturnsArgumentOutOfRangeException()
+        public void DetachComponent_NonAttachedComponentType_ReturnsInvalidOperationException()
         {
             // Arrange
             IObjective timedGoal = new TimedGoal("Get whiter teeth");
             IComponent priorityComponent = new Priority(Priority.PriorityLevel.Low);
 
             // Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => timedGoal.DetachComponent(priorityComponent));
+            Assert.Throws<InvalidOperationException>(() => timedGoal.DetachComponent(priorityComponent));
         }
 
         [Fact]
@@ -113,11 +113,33 @@ namespace Goalsy.Tests
         {
             // Arrange
             Goal timedGoal = new TimedGoal("Get whiter teeth");
-            timedGoal.AddTask(new BasicTask("Brush teeth"));
+            Task exampleTask = new BasicTask("Brush teeth");
+            timedGoal.AddTask(exampleTask);
+            timedGoal.AddTask(new BasicTask("Floss"));
             var allAttachedTasks = timedGoal.GetAllTasks();
 
             // Act
-            //timedGoal.RemoveTask();
+            timedGoal.RemoveTask(exampleTask);
+
+            // Assert
+            Assert.True(allAttachedTasks.Count == 1);
+
+        }
+
+        [Fact]
+        public void RemoveTask_NoTasksExistToRemove_ReturnsInvalidOperationException()
+        {
+            // Arrange 
+            Goal timedGoal = new TimedGoal("Get whiter teeth");
+            Task exampleTask = new BasicTask("Brush teeth");
+            timedGoal.AddTask(new BasicTask("Floss"));
+            var allAttachedTasks = timedGoal.GetAllTasks();
+
+            // Act
+            timedGoal.RemoveTask(exampleTask);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => timedGoal.RemoveTask(exampleTask));
 
         }
 
@@ -140,9 +162,28 @@ namespace Goalsy.Tests
         }
 
         [Fact]
-        public void RemoveTask_NoTasksExistToRemove_ReturnsException()
+        public void GetComponentByType_AttachedComponent_ShouldWork()
         {
+            // Arrange 
+            Goal timedGoal = new TimedGoal("Get whiter teeth");
+            IComponent expectedPriorityComponent = new Priority(Priority.PriorityLevel.Low);
+            timedGoal.AttachComponent(expectedPriorityComponent);
 
+            // Act
+            var actualComponent = timedGoal.GetComponentByType(ComponentType.Priority);
+
+            // Assert
+            Assert.Equal(expectedPriorityComponent, actualComponent);
+        }
+
+        [Fact]
+        public void GetComponentByType_NonAttachedComponenet_ReturnsInvalidOperationException()
+        {
+            // Arrange
+            Goal timedGoal = new TimedGoal("Get whiter teeth");
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => timedGoal.GetComponentByType(ComponentType.Priority));
         }
     }
 }
