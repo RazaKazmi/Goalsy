@@ -20,29 +20,32 @@ namespace Goalsy.Objectives
 
         public void AttachComponent(IComponent component)
         {
-            Log.Information("Component {ComponentName} added to Goal {GoalName}", component.Name, _description);
             _components.Add(component);
+            Log.Information("Component {ComponentName} added to Goal {GoalName}", component.Name, _description);
         }
 
         public void DetachComponent(IComponent component)
         {
-            Log.Information("Component {ComponentName} removed from Goal {GoalName}", component.Name, _description);
             _components.Remove(component);
+            Log.Information("Component {ComponentName} removed from Goal {GoalName}", component.Name, _description);
         }
 
         public void AddTask(Task task)
         {
             _tasks.Add(task);
+            Log.Information("Task added to Goal: {GoalName}", _description);
         }
 
         public void RemoveTask(Task task)
         {
             _tasks.Remove(task);
+            Log.Information("Task removed from Goal: {GoalName}", _description);
         }
 
         public void RemoveAllTasks()
         {
             _tasks.Clear();
+            Log.Debug("All tasks removed from Goal: {GoalName}", _description);
         }
 
         public List<Task> GetAllTasks()
@@ -56,9 +59,11 @@ namespace Goalsy.Objectives
             {
                 if (component.GetComponentType() == componentType)
                 {
+                    Log.Debug("Component {ComponentType} found on Objective: {ObjectiveName}", componentType, _description);
                     return component;
                 }
             }
+            Log.Debug("Component {ComponentType} not found on Objective: {ObjectiveName}", componentType, _description);
             return null;
         }
         public List<IComponent> GetAllComponents()
