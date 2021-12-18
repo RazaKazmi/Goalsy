@@ -40,6 +40,16 @@ namespace Goalsy.Objectives
             _tasks.Remove(task);
         }
 
+        public void RemoveAllTasks()
+        {
+            _tasks.Clear();
+        }
+
+        public List<Task> GetAllTasks()
+        {
+            return _tasks;
+        }
+
         public IComponent GetComponentByType(ComponentType componentType)
         {
             foreach (IComponent component in _components)
