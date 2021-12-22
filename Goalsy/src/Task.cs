@@ -11,6 +11,7 @@ namespace Goalsy.Objectives
     abstract class Task : IObjective
     {
         private string _description;
+        private IObjective _parent;
         protected List<IComponent> _components;
         //protected List<Subtasks> _subtasks;
 
@@ -19,6 +20,13 @@ namespace Goalsy.Objectives
             get => _description;
             // TO DO: Verify description is within character limit and valid
             set => _description = value; 
+        }
+
+        public IObjective ParentObjective
+        {
+            // TODO: Maybe limit returning a null parent value in future
+            get => _parent;
+            set => _parent = value;
         }
 
         public void AttachComponent(IComponent component)

@@ -33,12 +33,17 @@ namespace Goalsy.Objectives
         public void AddTask(Task task)
         {
             _tasks.Add(task);
+            task.ParentObjective = this;
             Log.Information("Task added to Goal: {GoalName}", _description);
         }
 
         public void RemoveTask(Task task)
         {
             _tasks.Remove(task);
+            // Note: tasks parent objective wont need to be set
+            // unless the task is being moved to a different goal
+            // or not deleted outright
+            task.ParentObjective = null;
             Log.Information("Task removed from Goal: {GoalName}", _description);
         }
 

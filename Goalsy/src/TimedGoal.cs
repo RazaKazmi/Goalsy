@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Goalsy.Components;
+using Serilog;
 
 namespace Goalsy.Objectives
 {
@@ -17,6 +15,7 @@ namespace Goalsy.Objectives
         {
             Init();
             Description = name;
+            Log.Information("TimedGoal created");
         }
 
         protected override void Init()
