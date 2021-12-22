@@ -8,14 +8,26 @@ namespace Goalsy.Tests
 {
     public class TimedGoalTests
     {
-        [Fact]
-        public void Description_SetValid_ShouldWork()
+        [Theory]
+        [InlineData("Get whiter teeth")]
+        [InlineData("s")]
+        [InlineData("!@#$%^&*()-_=+,./?<>~`")]
+        [InlineData("1234567890")]
+        public void Description_SetValid_ShouldWork(string goalName)
         {
+            // Arrange
+            string expected = goalName;
 
+            // Act
+            IObjective exampleGoal = new TimedGoal(goalName);
+            var actual = exampleGoal.Description;
+
+            // Assert
+            Assert.Equal(expected, actual);
         }
 
         [Fact]
-        public void Description_SetInvalid_ThrowsException()
+        public void Description_SetInvalid_ThrowsArugmentException()
         {
 
         }
@@ -34,6 +46,7 @@ namespace Goalsy.Tests
 
             // Assert
             Assert.True(attachedComponents.Count == 2);
+            Assert.Equal(priorityComponent, timedGoal.GetComponentByType(ComponentType.Priority));
         }
 
         [Fact]
@@ -50,6 +63,7 @@ namespace Goalsy.Tests
 
             // Assert
             Assert.True(attachedComponents.Count == 1);
+            Assert.NotEqual(timerComponent, attachedComponents[0]);
         }
 
         [Fact]
@@ -135,9 +149,6 @@ namespace Goalsy.Tests
             timedGoal.AddTask(new BasicTask("Floss"));
             var allAttachedTasks = timedGoal.GetAllTasks();
 
-            // Act
-            timedGoal.RemoveTask(exampleTask);
-
             // Assert
             Assert.Throws<InvalidOperationException>(() => timedGoal.RemoveTask(exampleTask));
 
@@ -177,7 +188,7 @@ namespace Goalsy.Tests
         }
 
         [Fact]
-        public void GetComponentByType_NonAttachedComponenet_ReturnsInvalidOperationException()
+        public void GetComponentByType_NonAttachedComponent_ReturnsInvalidOperationException()
         {
             // Arrange
             Goal timedGoal = new TimedGoal("Get whiter teeth");

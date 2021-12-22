@@ -7,6 +7,20 @@ namespace Goalsy.Tests
 {
     public class BasicTaskTests
     {
+        [Fact]
+        public void ParentObjective_AnyAttachedTask_ReturnsCorrectGoal()
+        {
+            // Arrange
+            Goal goal = new TimedGoal("Get whiter teeth");
+            Task task = new BasicTask("Floss");
+
+            // Act
+            goal.AddTask(task);
+
+            // Assert
+            Assert.Equal(goal,task.ParentObjective);
+        }
+
        [Fact]
        public void AttachComponent_NonAttachedComponentType_ShouldWork()
         {
@@ -55,13 +69,14 @@ namespace Goalsy.Tests
         }
 
         [Fact]
-        public void DetachComponent_NonAttachedComponentType_ShouldFail()
+        public void DetachComponent_NonAttachedComponentType_ReturnsInvalidOperationException()
         {
             // Arrange
-
-            // Act
+            IObjective task = new BasicTask("Floss");
+            IComponent priorityComponent = new Priority(Priority.PriorityLevel.Low);
 
             // Assert
+            Assert.Throws<InvalidOperationException>(() => task.DetachComponent(priorityComponent));
         }
     }
 }

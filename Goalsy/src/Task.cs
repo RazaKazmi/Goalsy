@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Serilog;
 using Goalsy.Components;
 
 
@@ -31,12 +29,30 @@ namespace Goalsy.Objectives
 
         public void AttachComponent(IComponent component)
         {
+            foreach (IComponent attachedComponent in _components)
+            {
+                if (attachedComponent.GetComponentType() == component.GetComponentType())
+                {
+                    Log.Debug("Component of this type already exists on {TaskName}", _description);
+                    return;
+                }
+            }
             _components.Add(component);
+            Log.Information("Component {ComponentName} added to Task {TaskName}", component.Name, _description);
         }
 
         public void DetachComponent(IComponent component)
         {
-            _components.Remove(component);
+            if (_components.Contains(component))
+            {
+                _components.Remove(component);
+                Log.Information("Component {ComponentName} removed from Task {TaskName}", component.Name, _description);
+            }
+            else
+            {
+                Log.Debug("Component {ComponentName} not found on Task {TaskName}", component.Name, _description);
+                throw new InvalidOperationException("Compnent to remove not found on task");
+            }
         }
 
         public IComponent GetComponentByType(ComponentType componentType)

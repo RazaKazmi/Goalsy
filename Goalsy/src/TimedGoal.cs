@@ -16,13 +16,13 @@ namespace Goalsy.Objectives
             Init();
             Description = name;
             Log.Information("TimedGoal created");
+            this.AttachComponent(new CountdownTimer(DefaultHours, DefaultMinutes, DefaultSeconds));
         }
 
         protected override void Init()
         {
             _components = new List<IComponent>();
             _tasks = new List<Task>();
-            this.AttachComponent(new CountdownTimer(DefaultHours,DefaultMinutes,DefaultSeconds));
         }
     }
 }
